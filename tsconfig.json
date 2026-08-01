@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    // Target Environment & Modules
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Type Definitions & Declarations
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // Strict Type-Checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Module & Build Safety
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
+}
