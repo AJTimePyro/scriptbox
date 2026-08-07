@@ -32,6 +32,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "pyodide": "^314.0.3",
     "tsup": "^8.5.1",
     "typescript": "^7.0.2"
   }
