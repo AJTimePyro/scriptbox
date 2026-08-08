@@ -6,9 +6,16 @@ export class RunnerError extends Error {
 }
 
 export class LibraryNotLoadedError extends RunnerError {
-  constructor() {
-    super("The runner library has not been loaded.");
+  constructor(message?: string) {
+    super(message || "The runner library has not been loaded.");
     this.name = "LibraryNotLoadedError";
+  }
+}
+
+export class UnsupportedLanguage extends RunnerError {
+  constructor(libray_name: string) {
+    super(`${libray_name} language is not a supported or an invalid language name.`);
+    this.name = "UnsupportedLanguage";
   }
 }
 

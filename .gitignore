@@ -1,2 +1,7 @@
 node_modules/
+
+# My personal testing folder
 dev_space/
+
+# build
+dist/
