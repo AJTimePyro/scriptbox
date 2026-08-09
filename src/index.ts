@@ -1,4 +1,4 @@
-import type { RunOptions, RunResult } from "./types.js";
+import type { RunOptions, RunResult } from "./types/index.js";
 import { PythonRunner } from "./runner/python.js";
 import { UnsupportedLanguage } from "./errors/runner.js";
 

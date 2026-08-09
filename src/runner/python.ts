@@ -2,21 +2,38 @@ import type { PyodideInterface } from "pyodide";
 
 import { LibraryNotLoadedError } from "../errors/runner.js";
 import { BaseRunner } from "./base.js";
-import type { RunResult } from "../types.js";
+import type { RunResult } from "../types/index.js";
+import type { PythonRunnerOptions } from "../types/runner.js";
 
 // Always fetches latest stable library
-const PYODIDE_CDN_BASE = "https://cdn.jsdelivr.net/npm/pyodide@0/";
-const PYODIDE_MODULE = `${PYODIDE_CDN_BASE}pyodide.mjs`;
+const PYODIDE_CDN_BASE = "https://cdn.jsdelivr.net/npm/pyodide";
+const PYODIDE_MODULE_FILE = "pyodide.mjs";
 
 export class PythonRunner extends BaseRunner {
   private pyodide: PyodideInterface | null = null;
+  private pyodideVersion: string = "0";
 
+  constructor(options: PythonRunnerOptions = {}) {
+    super();
+
+    if (options.pyodideVersion) {
+      this.pyodideVersion = options.pyodideVersion;
+    }
+  }
+
+  /**
+   * Dynamically fetches and initializes the Pyodide WebAssembly runtime from CDN.
+   * * Note: Dynamic URL imports may trigger bundler analysis warnings in dev mode (e.g. Vite).
+   */
   async load_library() {
     if (this.pyodide) return;
 
-    const { loadPyodide } = await import(PYODIDE_MODULE);
+    const pyodideBaseWithVer = `${PYODIDE_CDN_BASE}@${this.pyodideVersion}`;
+    const { loadPyodide } = await import(
+      `${pyodideBaseWithVer}/${PYODIDE_MODULE_FILE}`
+    );
     this.pyodide = await loadPyodide({
-      indexURL: PYODIDE_CDN_BASE,
+      indexURL: pyodideBaseWithVer,
     });
   }
 
