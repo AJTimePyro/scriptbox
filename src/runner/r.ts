@@ -1,7 +1,7 @@
 import type { WebR as WebRType, Shelter } from "webr";
 import { LibraryNotLoadedError } from "../errors/runner.js";
 import { BaseRunner } from "./base.js";
-import type { RunResult } from "../types/index.js";
+import type { RunOptions, RunResult } from "../types/index.js";
 import type { RRunnerOptions } from "../types/runner.js";
 
 
@@ -34,12 +34,13 @@ export class RRunner extends BaseRunner {
       `${webRBaseWithVer}/${WEBR_MODULE_FILE}`
     );
 
-    this.webR = new WebR({ baseUrl: `${webRBaseWithVer}/` });
-    await this.webR.init();
-    this.shelter = await new this.webR.Shelter();
+    const webR = new WebR({ baseUrl: `${webRBaseWithVer}/` });
+    await webR.init();
+    this.webR = webR;
+    this.shelter = await new webR.Shelter();
   }
 
-  async run(code: string): Promise<RunResult> {
+  async run(code: string, _options?: RunOptions): Promise<RunResult> {
     if (!this.webR || !this.shelter) {
       throw new LibraryNotLoadedError();
     }

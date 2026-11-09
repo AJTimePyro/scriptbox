@@ -2,7 +2,7 @@ import type { PyodideInterface } from "pyodide";
 
 import { LibraryNotLoadedError } from "../errors/runner.js";
 import { BaseRunner } from "./base.js";
-import type { RunResult } from "../types/index.js";
+import type { RunOptions, RunResult } from "../types/index.js";
 import type { PythonRunnerOptions } from "../types/runner.js";
 
 // Always fetches latest stable library
@@ -37,7 +37,7 @@ export class PythonRunner extends BaseRunner {
     });
   }
 
-  async run(code: string): Promise<RunResult> {
+  async run(code: string, _options?: RunOptions): Promise<RunResult> {
     if (!this.pyodide) {
       throw new LibraryNotLoadedError();
     }

@@ -7,3 +7,7 @@ export interface PythonRunnerOptions {
 export interface RRunnerOptions {
   webRVersion?: string;
 }
+
+export interface CppRunnerOptions {
+  cppboltVersion?: string;
+}
