@@ -3,6 +3,7 @@ import rSnippet from "../snippets/main.R?raw";
 import cppSnippet from "../snippets/main.cpp?raw";
 import jsSnippet from "../snippets/main.js?raw";
 import tsSnippet from "../snippets/main.ts?raw";
+import goSnippet from "../snippets/main.go?raw";
 import rootPkg from "../../../package.json";
 
 export type LanguageCategory = "Interpreted" | "Compiled";
@@ -115,6 +116,21 @@ export const LANGUAGES: LanguageDefinition[] = [
       version: cleanVersion(devDeps.typescript),
     },
     starterSnippet: assertAsciiOnly(tsSnippet, "typescript"),
+  },
+  {
+    id: "go",
+    name: "Go",
+    glyph: "GO",
+    extension: "go",
+    fileName: "main.go",
+    monacoLanguage: "go",
+    category: "Compiled",
+    aliases: ["go", "golang"],
+    engine: {
+      name: "Yaegi (WASM)",
+      version: cleanVersion(devDeps["yaegi-wasm"]),
+    },
+    starterSnippet: assertAsciiOnly(goSnippet, "go"),
   },
 ];
 
