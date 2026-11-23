@@ -1,5 +1,5 @@
 export interface RunOptions {
-  language: "python" | "r" | "cpp";
+  language: string;
   code: string;
   timeout?: number;
 }
