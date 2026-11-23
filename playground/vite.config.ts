@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
+  // Relative asset URLs keep the built app working under /<repo>/ on GitHub Pages.
+  base: "./",
   plugins: [tailwindcss(), react()],
   resolve: {
     alias: {
