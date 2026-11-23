@@ -29,7 +29,7 @@
     "client-side"
   ],
   "author": "",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "cppbolt": "^1.1.0",
     "pyodide": "^314.0.3",
