@@ -30,7 +30,7 @@ export class PythonRunner extends BaseRunner {
 
     const pyodideBaseWithVer = `${PYODIDE_CDN_BASE}@${this.pyodideVersion}`;
     const { loadPyodide } = await import(
-      `${pyodideBaseWithVer}/${PYODIDE_MODULE_FILE}`
+      /* @vite-ignore */ `${pyodideBaseWithVer}/${PYODIDE_MODULE_FILE}`
     );
     this.pyodide = await loadPyodide({
       indexURL: pyodideBaseWithVer,

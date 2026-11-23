@@ -82,6 +82,7 @@ export class CppRunner extends BaseRunner {
           stdout: "",
           stderr: error.diagnostic,
           executionTime: performance.now() - startTime,
+          exitCode: 1,
         };
       }
 

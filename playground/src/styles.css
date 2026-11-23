@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/geist";
+
+/* static: always emit every token, because plain CSS below references them */
+@theme static {
+  --color-base: #0B0D0E;
+  --color-surface: #111416;
+  --color-elevated: #171B1E;
+  --color-border: #232A2E;
+  --color-border-subtle: #1A2024;
+  --color-text: #E4E8E6;
+  --color-text-muted: #8A9490;
+  --color-text-faint: #55605C;
+  --color-accent: #B5F23D;
+  --color-accent-fg: #0B0D0E;
+  --color-error: #FF6B6B;
+  --color-warning: #F5B14C;
+
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+}
+
+html,
+body,
+#root {
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  color-scheme: dark;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232A2E;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #343E44;
+}
+
+.terminal-grid {
+  background-image: radial-gradient(#232A2E 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@keyframes cursor-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes progress-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.animate-progress-slide {
+  animation: progress-slide 1.5s ease-in-out infinite;
+}
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-cursor-blink {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .animate-progress-slide {
+    animation: none !important;
+    transform: translateX(0) !important;
+    width: 100% !important;
+  }
+}
