@@ -34,7 +34,7 @@
     "cppbolt": "^1.1.0",
     "pyodide": "^314.0.3",
     "tsdown": "^0.22.14",
-    "typescript": "^7.0.2",
+    "typescript": "6.0.3",
     "webr": "^0.6.0"
   }
 }

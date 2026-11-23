@@ -1,6 +1,8 @@
 import pythonSnippet from "../snippets/main.py?raw";
 import rSnippet from "../snippets/main.R?raw";
 import cppSnippet from "../snippets/main.cpp?raw";
+import jsSnippet from "../snippets/main.js?raw";
+import tsSnippet from "../snippets/main.ts?raw";
 import rootPkg from "../../../package.json";
 
 export type LanguageCategory = "Interpreted" | "Compiled";
@@ -84,6 +86,35 @@ export const LANGUAGES: LanguageDefinition[] = [
       version: cleanVersion(devDeps.cppbolt),
     },
     starterSnippet: assertAsciiOnly(cppSnippet, "cpp"),
+  },
+  {
+    id: "javascript",
+    name: "JavaScript",
+    glyph: "JS",
+    extension: "js",
+    fileName: "main.js",
+    monacoLanguage: "javascript",
+    category: "Interpreted",
+    aliases: ["js", "javascript", "node", "nodejs"],
+    engine: {
+      name: "Browser",
+    },
+    starterSnippet: assertAsciiOnly(jsSnippet, "javascript"),
+  },
+  {
+    id: "typescript",
+    name: "TypeScript",
+    glyph: "TS",
+    extension: "ts",
+    fileName: "main.ts",
+    monacoLanguage: "typescript",
+    category: "Compiled",
+    aliases: ["ts", "typescript"],
+    engine: {
+      name: "TypeScript",
+      version: cleanVersion(devDeps.typescript),
+    },
+    starterSnippet: assertAsciiOnly(tsSnippet, "typescript"),
   },
 ];
 

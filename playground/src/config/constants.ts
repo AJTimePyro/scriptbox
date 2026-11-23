@@ -9,7 +9,7 @@ export const INSTALL_SNIPPET = {
 
 const box = new ScriptBox();
 
-// Run Python, R, or C++ directly in the browser
+// Run Python, R, C++, JavaScript, or TypeScript directly in the browser
 const result = await box.run({
   language: "python",
   code: 'print("Running 100% client-side")',

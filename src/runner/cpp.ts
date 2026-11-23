@@ -8,19 +8,13 @@ import { LibraryNotLoadedError } from "../errors/runner.js";
 import { BaseRunner } from "./base.js";
 import type { RunOptions, RunResult } from "../types/index.js";
 import type { CppRunnerOptions } from "../types/runner.js";
+import { isNodeRuntime } from "./runtime.js";
 
 const CPPBOLT_CDN_BASE = "https://cdn.jsdelivr.net/npm/cppbolt";
 const CPPBOLT_BROWSER_FILE = "dist/index.browser.mjs";
 const CPPBOLT_WASM_FILE = "wasm/cppbolt.wasm";
 
 type CppBoltModule = typeof import("cppbolt");
-
-function isNodeRuntime(): boolean {
-  const proc = (globalThis as {
-    process?: { versions?: { node?: string } };
-  }).process;
-  return typeof proc?.versions?.node === "string";
-}
 
 export class CppRunner extends BaseRunner {
   private cppbolt: CppBoltModule | null = null;

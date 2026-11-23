@@ -3,6 +3,8 @@ import type { BaseRunner } from "./runner/base.js";
 import { PythonRunner } from "./runner/python.js";
 import { RRunner } from "./runner/r.js";
 import { CppRunner } from "./runner/cpp.js";
+import { JavaScriptRunner } from "./runner/javascript.js";
+import { TypeScriptRunner } from "./runner/typescript.js";
 import { UnsupportedLanguage } from "./errors/runner.js";
 
 export interface LanguageInfo {
@@ -38,6 +40,19 @@ int main() {
   return 0;
 }`,
     createRunner: () => new CppRunner(),
+  },
+  javascript: {
+    id: "javascript",
+    label: "JavaScript",
+    template: `console.log("Hello from ScriptBox (JavaScript)")`,
+    createRunner: () => new JavaScriptRunner(),
+  },
+  typescript: {
+    id: "typescript",
+    label: "TypeScript",
+    template: `const message: string = "Hello from ScriptBox (TypeScript)";
+console.log(message)`,
+    createRunner: () => new TypeScriptRunner(),
   },
 };
 

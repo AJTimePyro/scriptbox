@@ -1,6 +1,6 @@
 import { BookOpen, Code2 } from "lucide-react";
 import { RuntimeStatusPopover } from "./RuntimeStatusPopover";
-import { GITHUB_REPO_URL, DOCS_URL } from "../constants";
+import { GITHUB_REPO_URL, DOCS_URL } from "../config/constants";
 import { getHeaderDescription } from "../config/languages";
 import type { LanguageRuntimeInfo } from "../types";
 

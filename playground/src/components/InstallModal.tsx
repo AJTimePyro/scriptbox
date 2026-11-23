@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Check, Copy, X } from "lucide-react";
-import { INSTALL_SNIPPET } from "../constants";
+import { INSTALL_SNIPPET } from "../config/constants";
 import { copyText } from "../utils/clipboard";
 
 type Props = {
