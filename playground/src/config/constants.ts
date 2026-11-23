@@ -1,5 +1,5 @@
-export const GITHUB_REPO_URL = "https://github.com/scriptbox-wasm/scriptbox";
-export const DOCS_URL = "https://github.com/scriptbox-wasm/scriptbox#readme";
+export const GITHUB_REPO_URL = "https://github.com/AJTimePyro/scriptbox";
+export const DOCS_URL = "https://github.com/AJTimePyro/scriptbox#readme";
 
 export const INSTALL_SNIPPET = {
   packageManager: "npm install scriptbox",
