@@ -3,7 +3,6 @@ import type {
   RunOptions as CppBoltRunOptions,
   RunResult as CppBoltRunResult,
 } from "cppbolt";
-import { CompileError, TimeoutError } from "cppbolt";
 
 import { LibraryNotLoadedError } from "../errors/runner.js";
 import { BaseRunner } from "./base.js";
@@ -77,7 +76,7 @@ export class CppRunner extends BaseRunner {
         exitCode: result.exitCode,
       };
     } catch (error) {
-      if (error instanceof CompileError) {
+      if (error instanceof this.cppbolt.CompileError) {
         return {
           stdout: "",
           stderr: error.diagnostic,
@@ -86,7 +85,7 @@ export class CppRunner extends BaseRunner {
         };
       }
 
-      if (error instanceof TimeoutError) {
+      if (error instanceof this.cppbolt.TimeoutError) {
         return {
           stdout: error.stdout ?? "",
           stderr: error.message,

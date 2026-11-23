@@ -51,13 +51,11 @@ export class RRunner extends BaseRunner {
 
       const localStdoutBuffer: string[] = [];
       const localStderrBuffer: string[] = [];
-      let sawError = false;
 
       for (const message of result.output) {
         if (message.type === "stdout" && typeof message.data === "string") {
           localStdoutBuffer.push(message.data);
         } else if (message.type === "stderr" || message.type === "error") {
-          if (message.type === "error") sawError = true;
           localStderrBuffer.push(String(message.data));
         }
       }
@@ -68,7 +66,6 @@ export class RRunner extends BaseRunner {
         stdout: localStdoutBuffer.join("\n"),
         stderr: localStderrBuffer.join("\n"),
         executionTime,
-        ...(sawError ? { exitCode: 1 } : {}),
       };
     } finally {
       this.shelter.purge();
