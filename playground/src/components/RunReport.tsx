@@ -12,7 +12,7 @@ function MetricCard({
   children: ReactNode;
 }) {
   return (
-    <div className="rounded border border-border-subtle bg-surface/50 p-2">
+    <div className="rounded border border-border-subtle bg-surface/50 p-1.5 sm:p-2">
       <div className="text-[10px] uppercase tracking-wider text-text-faint">
         {label}
       </div>
@@ -37,12 +37,13 @@ function EmptyCard({
   title?: string;
 }) {
   return (
-    <div className="rounded border border-dashed border-border-subtle bg-surface/30 p-2">
+    <div className="rounded border border-dashed border-border-subtle bg-surface/30 p-1.5 sm:p-2">
       <div className="text-[10px] uppercase tracking-wider text-text-faint">
         {label}
       </div>
       <div className="mt-1 text-[11px] text-text-faint" title={title}>
-        {text}
+        <span className="sm:hidden">—</span>
+        <span className="hidden sm:inline">{text}</span>
       </div>
     </div>
   );
@@ -57,18 +58,20 @@ export function RunReport({ metrics, isInterpreted }: { metrics: RunMetrics; isI
     <div
       role="region"
       aria-label="Run Report"
-      className="shrink-0 border-t border-border bg-elevated/70 p-3 select-none font-mono"
+      className={`shrink-0 border-t border-border bg-elevated/70 p-2 select-none font-mono sm:p-3 ${
+        hasRun ? "" : "hidden sm:block"
+      }`}
     >
-      <div className="flex items-center justify-between pb-2">
+      <div className="flex items-center justify-between pb-1 sm:pb-2">
         <span className="text-[11px] font-semibold uppercase tracking-wider text-text-faint">
           Run Report
         </span>
-        <span className="text-[10px] text-text-faint">
+        <span className="hidden text-[10px] text-text-faint sm:inline">
           this run
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="grid grid-cols-4 gap-1 sm:gap-2">
         {isInterpreted ? (
           <MetricCard label="Compile">
             <span
@@ -117,7 +120,7 @@ export function RunReport({ metrics, isInterpreted }: { metrics: RunMetrics; isI
         )}
 
         {metrics.packageLoadMs !== null ? (
-          <MetricCard label="Runtime Load">
+          <MetricCard label="Load">
             <span>
               {formatDuration(metrics.packageLoadMs)}
               {formattedSize ? ` · ${formattedSize}` : ""}
@@ -132,10 +135,10 @@ export function RunReport({ metrics, isInterpreted }: { metrics: RunMetrics; isI
             )}
           </MetricCard>
         ) : !hasRun ? (
-          <EmptyCard label="Runtime Load" text="not run yet" />
+          <EmptyCard label="Load" text="not run yet" />
         ) : (
           <EmptyCard
-            label="Runtime Load"
+            label="Load"
             text="not reported"
             title="Not reported by this engine yet"
           />

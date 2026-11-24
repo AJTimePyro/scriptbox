@@ -370,7 +370,7 @@ export default function App() {
       </div>
 
       {isMobile && (
-        <div className="shrink-0 border-t border-border bg-surface p-2 z-20">
+        <div className="shrink-0 border-t border-border bg-surface p-1.5 z-20">
           <button
             type="button"
             onClick={isBusy ? () => stopRun(currentLanguage) : handleRun}

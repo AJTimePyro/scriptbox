@@ -83,6 +83,7 @@ export function CodeEditor({
           overviewRulerLanes: 0,
           scrollBeyondLastLine: false,
           fixedOverflowWidgets: true,
+          contextmenu: !isMobile,
           wordWrap: "off",
           quickSuggestions: { other: "on", comments: "on", strings: "on" },
           wordBasedSuggestions: "currentDocument",

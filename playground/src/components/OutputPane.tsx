@@ -77,8 +77,8 @@ export function OutputPane({
       </div>
 
       <div className="flex h-11 shrink-0 items-center justify-between border-b border-border bg-surface px-3 select-none">
-        <div className="flex items-center gap-3">
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-text-faint">
+        <div className="flex items-center gap-1.5 sm:gap-3">
+          <span className="hidden font-mono text-[11px] font-semibold uppercase tracking-wider text-text-faint sm:inline">
             Output
           </span>
 
@@ -87,7 +87,7 @@ export function OutputPane({
               type="button"
               onClick={() => setFilter("all")}
               aria-pressed={filter === "all"}
-              className={`rounded px-2 py-0.5 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
+              className={`rounded px-2 py-0.5 whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
                 filter === "all"
                   ? "bg-elevated text-text border border-border"
                   : totalCount === 0
@@ -101,7 +101,7 @@ export function OutputPane({
               type="button"
               onClick={() => setFilter("stdout")}
               aria-pressed={filter === "stdout"}
-              className={`rounded px-2 py-0.5 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
+              className={`rounded px-2 py-0.5 whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
                 filter === "stdout"
                   ? "bg-elevated text-text border border-border"
                   : stdoutLines.length === 0
@@ -115,7 +115,7 @@ export function OutputPane({
               type="button"
               onClick={() => setFilter("stderr")}
               aria-pressed={filter === "stderr"}
-              className={`rounded px-2 py-0.5 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
+              className={`rounded px-2 py-0.5 whitespace-nowrap transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent ${
                 filter === "stderr"
                   ? "bg-elevated text-error border border-border"
                   : stderrLines.length === 0
@@ -166,7 +166,7 @@ export function OutputPane({
                 ▋
               </span>
             </div>
-            <p className="mt-2 text-xs text-text-faint">
+            <p className="mt-2 hidden text-xs text-text-faint sm:block">
               Press{" "}
               <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 text-[11px] text-text-muted">
                 {shortcutHint}

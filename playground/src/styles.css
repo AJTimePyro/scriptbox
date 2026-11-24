@@ -37,6 +37,14 @@ body,
   color-scheme: dark;
 }
 
+/* Monaco renders its context menu in a shadow root; custom properties must be set on the host. */
+.shadow-root-host {
+  --vscode-menu-background: var(--color-elevated);
+  --vscode-menu-foreground: var(--color-text);
+  --vscode-menu-border: var(--color-border);
+  --vscode-menu-separatorBackground: var(--color-border);
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

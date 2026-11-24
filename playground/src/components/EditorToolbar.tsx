@@ -89,7 +89,7 @@ export function EditorToolbar({
             <>
               <Play size={12} className="fill-current" strokeWidth={1.5} />
               <span>Run</span>
-              <kbd className="ml-1.5 inline-flex items-center rounded border border-black/25 bg-[rgba(0,0,0,0.12)] px-1 font-mono text-[11px] font-normal leading-none text-accent-fg whitespace-nowrap">
+              <kbd className="ml-1.5 hidden items-center rounded border border-black/25 bg-[rgba(0,0,0,0.12)] px-1 font-mono text-[11px] font-normal leading-none text-accent-fg whitespace-nowrap sm:inline-flex">
                 {shortcutHint}
               </kbd>
             </>
