@@ -101,13 +101,13 @@ export function LanguageSelect({
       return;
     }
     setSearchQuery("");
-    const idx = languages.findIndex((l) => l.id === selectedId);
+    const idx = flatItems.findIndex((l) => l.id === selectedId);
     setActiveIndex(idx >= 0 ? idx : 0);
     if (showSearch) {
       const timer = window.setTimeout(() => searchInputRef.current?.focus(), 50);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, languages, selectedId, showSearch]);
+  }, [isOpen, flatItems, selectedId, showSearch]);
 
   // Clamp the highlight when filtering removes rows.
   useEffect(() => {

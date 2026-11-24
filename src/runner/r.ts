@@ -21,11 +21,6 @@ export class RRunner extends BaseRunner {
     }
   }
 
-  /**
-   * Dynamically fetches and initializes the WebR WebAssembly runtime from CDN.
-   *
-   * Note: Dynamic URL imports may trigger bundler analysis warnings in dev mode (e.g. Vite).
-   */
   async load_library() {
     if (this.webR) return;
 

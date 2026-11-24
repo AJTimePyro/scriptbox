@@ -7,6 +7,8 @@ import { CppRunner } from "./runner/cpp.js";
 import { JavaScriptRunner } from "./runner/javascript.js";
 import { TypeScriptRunner } from "./runner/typescript.js";
 import { GoRunner } from "./runner/go.js";
+import { PhpRunner } from "./runner/php.js";
+import { RubyRunner } from "./runner/ruby.js";
 import { UnsupportedLanguage } from "./errors/runner.js";
 
 export interface LanguageInfo {
@@ -67,6 +69,19 @@ func main() {
 	fmt.Println("Hello from ScriptBox (Go)")
 }`,
     createRunner: (goOptions) => new GoRunner(goOptions),
+  },
+  php: {
+    id: "php",
+    label: "PHP",
+    template: `<?php
+echo "Hello from ScriptBox (PHP)\\n";`,
+    createRunner: () => new PhpRunner(),
+  },
+  ruby: {
+    id: "ruby",
+    label: "Ruby",
+    template: `puts "Hello from ScriptBox (Ruby)"`,
+    createRunner: () => new RubyRunner(),
   },
 };
 

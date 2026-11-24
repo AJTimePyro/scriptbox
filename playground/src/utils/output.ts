@@ -6,7 +6,7 @@ export function splitOutputLines(text: string): string[] {
 
 /**
  * How many lines are rendered versus printed. Each stream is capped separately,
- * so the truncation notice must count what is actually shown, not the raw total.
+ * so the truncation notice counts only the lines shown.
  */
 export function summarizeOutput(
   stdoutLines: string[],

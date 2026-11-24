@@ -4,6 +4,8 @@ import cppSnippet from "../snippets/main.cpp?raw";
 import jsSnippet from "../snippets/main.js?raw";
 import tsSnippet from "../snippets/main.ts?raw";
 import goSnippet from "../snippets/main.go?raw";
+import phpSnippet from "../snippets/main.php?raw";
+import rubySnippet from "../snippets/main.rb?raw";
 import rootPkg from "../../../package.json";
 
 export type LanguageCategory = "Interpreted" | "Compiled";
@@ -132,14 +134,41 @@ export const LANGUAGES: LanguageDefinition[] = [
     },
     starterSnippet: assertAsciiOnly(goSnippet, "go"),
   },
+  {
+    id: "php",
+    name: "PHP",
+    glyph: "PHP",
+    extension: "php",
+    fileName: "main.php",
+    monacoLanguage: "php",
+    category: "Interpreted",
+    aliases: ["php", "php8"],
+    engine: {
+      name: "PHP.wasm",
+      version: "3.1.66",
+    },
+    starterSnippet: assertAsciiOnly(phpSnippet, "php"),
+  },
+  {
+    id: "ruby",
+    name: "Ruby",
+    glyph: "RB",
+    extension: "rb",
+    fileName: "main.rb",
+    monacoLanguage: "ruby",
+    category: "Interpreted",
+    aliases: ["rb", "ruby", "ruby3"],
+    engine: {
+      name: "ruby.wasm",
+      version: "2.10.1",
+    },
+    starterSnippet: assertAsciiOnly(rubySnippet, "ruby"),
+  },
 ];
 
 export const SEARCH_THRESHOLD = 6;
 
-/**
- * Builds the header tagline from the language registry.
- * Up to four languages are named; larger registries show a count.
- */
+/** Names up to four languages in the header; larger registries show a count. */
 export function getHeaderDescription(): string {
   if (LANGUAGES.length === 0) return "Run code in your browser. No backend.";
   if (LANGUAGES.length === 1) return `Run ${LANGUAGES[0].name} in your browser. No backend.`;

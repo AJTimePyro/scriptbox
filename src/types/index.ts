@@ -8,6 +8,6 @@ export interface RunResult {
   stdout: string;
   stderr: string;
   executionTime: number;
-  /** Exit status set by the C++, JavaScript, TypeScript, and Go runners. Python and R leave it unset. */
+  /** Exit status set by C++, Go, PHP, Ruby, JavaScript, and TypeScript. Python and R leave it unset. */
   exitCode?: number;
 }

@@ -21,10 +21,6 @@ export class PythonRunner extends BaseRunner {
     }
   }
 
-  /**
-   * Dynamically fetches and initializes the Pyodide WebAssembly runtime from CDN.
-   * * Note: Dynamic URL imports may trigger bundler analysis warnings in dev mode (e.g. Vite).
-   */
   async load_library() {
     if (this.pyodide) return;
 

@@ -1,6 +1,6 @@
 # ScriptBox
 
-ScriptBox runs Python, R, C++, Go, JavaScript, and TypeScript from JavaScript, in the browser or in Node. Python, R, C++, and Go execute in WASM runtimes. TypeScript is transpiled with the TypeScript compiler, and its output runs through the JavaScript runner.
+ScriptBox runs Python, R, C++, Go, PHP, Ruby, JavaScript, and TypeScript from JavaScript in the browser. Python, R, C++, Go, PHP, and Ruby execute in WASM runtimes. TypeScript is transpiled with the TypeScript compiler, and its output runs through the JavaScript runner.
 
 Try the [live playground](https://ajtimepyro.is-a.dev/scriptbox/) without installing anything.
 
@@ -75,7 +75,7 @@ Returns `{ id, label, template }` for each language. Pass `id` to `run()`. `temp
 | `stdout` | `string` | Captured standard output. |
 | `stderr` | `string` | Captured errors and diagnostics. |
 | `executionTime` | `number` | Milliseconds, including transpilation for TypeScript. |
-| `exitCode` | `number?` | C++ and Go report 0 on success. JavaScript and TypeScript set it on failure. Python and R leave it unset. |
+| `exitCode` | `number?` | C++, Go, PHP, and Ruby report 0 on success. JavaScript and TypeScript set it on failure. Python and R leave it unset. |
 
 An unknown `language` rejects with an error whose `name` is `UnsupportedLanguage`. The error classes are internal and not exported.
 
@@ -87,23 +87,29 @@ An unknown `language` rejects with an error whose `name` is `UnsupportedLanguage
 | `r` | R | [WebR](https://docs.r-wasm.org/webr/latest/) 0.6.0 ([repo](https://github.com/r-wasm/webr)) | webr.r-wasm.org |
 | `cpp` | C++ | [cppbolt](https://github.com/AJTimePyro/cppbolt) 1.1.0 | jsDelivr in the browser, installed package in Node |
 | `go` | Go | [yaegi-wasm](https://www.npmjs.com/package/yaegi-wasm) 1.0.2 | jsDelivr; URLs overridable through `options.go` |
+| `php` | PHP | [PHP.wasm](https://wordpress.github.io/wordpress-playground/developers/architecture/php-wasm-packages/) 3.1.66 (PHP 8.4) | jsDelivr |
+| `ruby` | Ruby | [ruby.wasm](https://github.com/ruby/ruby.wasm) 2.10.1 (Ruby 3.4) | jsDelivr |
 | `javascript` | JavaScript | [`AsyncFunction`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction) | No runtime load |
 | `typescript` | TypeScript | [TypeScript](https://www.typescriptlang.org/) 6.0.3 | jsDelivr in the browser, installed package in Node; output runs through the JavaScript runner |
 
-Python, R, and Go fetch their runtimes over the network even in Node. C++ and TypeScript resolve installed npm packages there.
+Python, R, Go, PHP, and Ruby fetch their runtimes over the network from a CDN. Those runners are browser-only: Node's default ESM loader cannot import HTTPS modules. C++ and TypeScript resolve installed npm packages in Node.
+
+PHP.wasm is licensed GPL-2.0-or-later; ruby.wasm is MIT. Check the PHP license before redistributing the runtime binaries with a build.
 
 ## Execution behavior
 
 ScriptBox caches one runner per language. Each runner loads its runtime on the first `run()` and reuses it after that. The runtime imports use dynamic URLs marked `@vite-ignore`, so bundlers leave them for the browser or Node to resolve at call time.
 
-Output handling varies by runner. Python installs stdout and stderr handlers with local buffers and resets them to no-op after each run. R captures each call in its shelter and purges it afterward. Go clears its capture buffers and serializes evaluations because it patches global `fs.writeSync` and depends on globals that yaegi registers. Go polls for up to 3 seconds for the WASM module to register its eval function during load.
+Output handling varies by runner. Python installs stdout and stderr handlers with local buffers and resets them to no-op after each run. R captures each call in its shelter and purges it afterward. Go clears its capture buffers and serializes evaluations because it patches global `fs.writeSync` and depends on globals that yaegi registers. Go polls for up to 3 seconds for the WASM module to register its eval function during load. PHP reads stdout, stderr, and the exit code from a streamed response and resets interpreter state between runs; code without an opening `<?php` tag gets one added. Ruby wires the WASI stdout/stderr callbacks into per-run buffers and creates a fresh VM for each run, so constants and globals do not leak.
 
-Only C++ uses `timeout`. JavaScript and Go ignore it, and Python, R, and TypeScript never read it. To stop code that never yields, terminate the worker that owns the run. The playground does this. The JavaScript runner awaits outstanding `setTimeout` callbacks but does not track `setInterval`, so an interval can outlive the returned promise.
+Only C++ uses `timeout`; the other runners ignore it. To stop code that never yields, terminate the worker that owns the run. The playground does this. The JavaScript runner awaits outstanding `setTimeout` callbacks but does not track `setInterval`, so an interval can outlive the returned promise.
 
 Exit codes:
 
 - C++ returns 0 on success, 1 on a compile error, and 124 on timeout.
 - Go returns 0 or 1 based on the evaluation result.
+- PHP returns 0 on success and 255 on a fatal error.
+- Ruby returns 0 on success and 1 when evaluation raises.
 - JavaScript sets 1 when the function throws and leaves it unset otherwise.
 - TypeScript sets 1 when compilation reports diagnostics and otherwise inherits the JavaScript runner result.
 
